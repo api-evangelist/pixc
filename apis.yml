@@ -1,7 +1,12 @@
 aid: pixc
 name: Pixc
-description: Pixc is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: Pixc is an ecommerce enablement company that builds Shopify apps automating
+  the visual busywork of running an online store — product photo resizing and AI framing,
+  background removal and retouching, AI-generated alt text for SEO, AI lifestyle imagery,
+  and automated visual merchandising of collections. Founded in 2014 and backed by
+  500 Global, Pixc also runs a professional bulk product photo-editing service (pay-per-image
+  credits with an optional Pixc Member subscription) and serves 32,000+ Shopify merchants.
+  Pixc is an app developer and photo-editing service; it exposes no public developer API.
 url: https://raw.githubusercontent.com/api-evangelist/pixc/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,11 +14,31 @@ x-backed-by:
 - 500-global
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://pixc.com/images/hero-illustration.png
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
+- Shopify
+- Ecommerce
+- Photo Editing
+- Image Optimization
+- Product Photography
+- SEO
+- Automation
+- AI
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -21,5 +46,28 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/pixc-domain-security.yml
 - type: Website
   url: https://pixc.com
+- type: Blog
+  url: https://pixc.com/blog/
+- type: Support
+  url: https://help.pixc.com/en/
+- type: SignUp
+  url: https://pixc.com/dashboard/signup
+- type: Login
+  url: https://pixc.com/dashboard/login
+- type: Pricing
+  url: https://pixc.com/photo-editing/
+- type: TermsOfService
+  url: https://pixc.com/legal/
+- type: PrivacyPolicy
+  url: https://pixc.com/legal/
+- type: LinkedIn
+  url: https://linkedin.com/company/pixc
+x-enrichment:
+  date: '2026-07-20'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
