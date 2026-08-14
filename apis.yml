@@ -4,56 +4,141 @@ description: Pixc is an ecommerce enablement company that builds Shopify apps au
   the visual busywork of running an online store — product photo resizing and AI framing,
   background removal and retouching, AI-generated alt text for SEO, AI lifestyle imagery,
   and automated visual merchandising of collections. Founded in 2014 and backed by
-  500 Global, Pixc also runs a professional bulk product photo-editing service (pay-per-image
-  credits with an optional Pixc Member subscription) and serves 32,000+ Shopify merchants.
-  Pixc is an app developer and photo-editing service; it exposes no public developer API.
+  500 Global, Pixc also runs a professional bulk product photo-editing service billed in
+  prepaid image credits, and serves 32,000+ Shopify merchants. Pixc publishes a public
+  REST API — the Pixc Public API at https://dashboard.pixc.com/v1 — that lets a store or
+  marketplace automate the same photo optimization programmatically — define a reusable
+  template encoding the photo standard, submit batches of image URLs as orders, register
+  webhooks for completion, and collect the optimized results as image URLs or packaged
+  downloads.
 url: https://raw.githubusercontent.com/api-evangelist/pixc/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
-x-tier-reason: portfolio-lead
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: prepaid-credits
+  onboarding: self-service
   trial: false
-  try_now: false
-  public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  try_now: true
+  public: true
+  label: Public
+  confidence: high
+  source:
+  - https://pixc.com/api/
+  - https://pixc.com/photo-editing/
+  generated: '2026-08-13'
+  method: searched
+  note: >-
+    Self-service sign-up at https://pixc.com/dashboard/signup, Access Token issued from
+    Account Settings > API Access in the dashboard. The API is not separately priced — calls
+    spend the same prepaid image credits sold on the pricing page. The `test: true` header
+    exercises any operation without spending credits, which is the only free path.
 image: https://pixc.com/images/hero-illustration.png
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-13'
 tags:
 - Company
 - Shopify
 - Ecommerce
 - Photo Editing
 - Image Optimization
+- Image Processing
 - Product Photography
+- Background Removal
 - SEO
 - Automation
 - AI
-apis: []
+- Webhooks
+- Digital Asset Management
+apis:
+- name: Pixc Public API
+  description: >-
+    REST API for automated product-photo optimization. Three resources — templates (the
+    reusable photo standard: background, border, shadow, output file types and aspect
+    sizes), orders (a batch of submitted image URLs processed against one template), and
+    webhooks (order_created, order_status_updated, download_generated) — across sixteen
+    operations. Results are read back as per-image records with one rendered output per
+    template type/size combination, or as packaged downloads. Authentication is a bearer
+    Access Token issued from the Pixc Dashboard; the published spec additionally declares an
+    OAuth 2.0 implicit flow with eleven granular scopes. Every operation accepts a
+    `test: true` header that validates the request without modifying the account or spending
+    image credits. Published by Pixc as Swagger 2.0 at https://dashboard.pixc.com/v1/schema.
+  humanURL: https://pixc.com/api/
+  baseURL: https://dashboard.pixc.com/v1
+  tags:
+  - image-processing
+  - photo-editing
+  - background-removal
+  - image-resizing
+  - ecommerce
+  - product-photography
+  - digital-asset-management
+  - webhooks
+  properties:
+  - type: Documentation
+    url: https://pixc.com/api/
+  - type: APIReference
+    url: https://dashboard.pixc.com/docs?url=https://dashboard.pixc.com/v1/schema
+  - type: GettingStarted
+    url: https://pixc.com/api/#getting-started
+  - type: Swagger
+    url: https://dashboard.pixc.com/v1/schema
+  - type: OpenAPI
+    url: openapi/pixc-orders-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/pixc-templates-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/pixc-webhooks-api-openapi.yml
+  - type: Overlay
+    url: overlays/pixc-orders-overlay.yaml
+  - type: Overlay
+    url: overlays/pixc-templates-overlay.yaml
+  - type: Overlay
+    url: overlays/pixc-webhooks-overlay.yaml
+  - type: Authentication
+    url: authentication/pixc-authentication.yml
+  - type: OAuthScopes
+    url: scopes/pixc-scopes.yml
+  - type: Conventions
+    url: conventions/pixc-conventions.yml
+  - type: ErrorCatalog
+    url: errors/pixc-problem-types.yml
+  - type: DataModel
+    url: data-model/pixc-data-model.yml
+  - type: Webhooks
+    url: asyncapi/pixc-webhooks.yml
+  - type: Sandbox
+    url: sandbox/pixc-sandbox.yml
+  - type: RateLimits
+    url: rate-limits/pixc-rate-limits.yml
+  - type: Plans
+    url: plans/pixc-plans-pricing.yml
+  - type: SDKs
+    url: packages/pixc-packages.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
-- type: DomainSecurity
-  url: security/pixc-domain-security.yml
+- type: DeveloperPortal
+  url: https://pixc.com/api/
+- type: Documentation
+  url: https://pixc.com/api/
+- type: APIReference
+  url: https://dashboard.pixc.com/docs?url=https://dashboard.pixc.com/v1/schema
+- type: GettingStarted
+  url: https://pixc.com/api/#getting-started
 - type: Website
   url: https://pixc.com
 - type: Blog
   url: https://pixc.com/blog/
 - type: Support
   url: https://help.pixc.com/en/
+- type: GitHubOrganization
+  url: https://github.com/Pixc2
 - type: SignUp
   url: https://pixc.com/dashboard/signup
 - type: Login
@@ -66,8 +151,82 @@ common:
   url: https://pixc.com/legal/
 - type: LinkedIn
   url: https://linkedin.com/company/pixc
+- type: Packages
+  url: packages/pixc-packages.yml
+- type: SDKs
+  url: packages/pixc-packages.yml
+- type: Authentication
+  url: authentication/pixc-authentication.yml
+- type: OAuthScopes
+  url: scopes/pixc-scopes.yml
+- type: Conventions
+  url: conventions/pixc-conventions.yml
+- type: ErrorCatalog
+  url: errors/pixc-problem-types.yml
+- type: DataModel
+  url: data-model/pixc-data-model.yml
+- type: Webhooks
+  url: asyncapi/pixc-webhooks.yml
+- type: Sandbox
+  url: sandbox/pixc-sandbox.yml
+- type: Lifecycle
+  url: lifecycle/pixc-lifecycle.yml
+- type: Conformance
+  url: conformance/pixc-conformance.yml
+- type: Plans
+  url: plans/pixc-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/pixc-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/pixc-agentic-access.yml
+- type: LLMsTxt
+  url: llms/pixc-llms.txt
+- type: DomainSecurity
+  url: security/pixc-domain-security.yml
+x-pointers-deliberately-omitted:
+- type: WellKnown
+  reason: >-
+    well-known/pixc-well-known.yml records a probe in which every /.well-known/ path returned
+    404 on dashboard.pixc.com and 403 on pixc.com. The artifact documents an absence; a
+    pointer would assert Pixc serves the surface.
+- type: MCPServer
+  reason: >-
+    mcp/pixc-mcp.yml is a derived candidate tool list with deployment.mode = none. Pixc ships
+    no hosted or local MCP server, so a pointer would credit an agent surface that does not exist.
+- type: AgentCard
+  reason: >-
+    /.well-known/agent-card.json and /.well-known/agent.json miss on every host. Per the
+    pipeline, nothing was written to a2a/.
+- type: Idempotency
+  reason: >-
+    No idempotency header, parameter or retry-safety contract exists in the published spec or
+    docs. See conventions/pixc-conventions.yml.
+- type: StatusPage
+  reason: >-
+    status.pixc.com returns HTTP 200 but the body is the two-byte string "OK" from the
+    pixc.com DNS wildcard, not a status page. pixc.com/status is 404.
+- type: Deprecation
+  reason: No deprecation policy, Sunset header support or notice period is published.
+- type: Security
+  reason: >-
+    probe-security-programs.py found no security.txt, no disclosure page and no bug bounty;
+    pixc.com/security returns 404.
+- type: Compliance
+  reason: >-
+    No trust centre and no named certification (SOC 2, ISO 27001, PCI, HIPAA, GDPR) is
+    published on a reachable page; /trust and /compliance both 404.
+- type: ChangeLog
+  reason: >-
+    No changelog, release-notes page or GitHub release exists. pixc.com/changelog is 404 and
+    the sitemap lists no such page.
+- type: AsyncAPI
+  reason: >-
+    Pixc documents webhooks but publishes no AsyncAPI document; Webhooks is pointed at
+    instead and no AsyncAPI was authored on Pixc's behalf.
 x-enrichment:
-  date: '2026-07-20'
-  status: minimal
-  artifacts_added: 1
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 27
   pass: local-v1
