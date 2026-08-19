@@ -35,7 +35,7 @@ accessModel:
     spend the same prepaid image credits sold on the pricing page. The `test: true` header
     exercises any operation without spending credits, which is the only free path.
 image: https://pixc.com/images/hero-illustration.png
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-13'
 tags:
