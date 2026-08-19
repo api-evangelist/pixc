@@ -1,0 +1,305 @@
+openapi: 3.1.0
+info:
+  title: Pixc Public API Webhooks
+  version: 1.0.0
+  description: Pixc Public API — automate product-photo optimization (background removal, resize, ratio
+    and file-type adjustment, shadows and reflections) by submitting photos as orders against reusable
+    templates. Harvested from the Pixc-published Swagger 2.0 document at https://dashboard.pixc.com/v1/schema
+    and converted to OpenAPI 3.1; split by tag by the API Evangelist pipeline.
+  contact:
+    name: Pixc
+    url: https://pixc.com/api/
+servers:
+- url: https://dashboard.pixc.com/v1
+  description: Pixc Public API
+tags:
+- name: Webhooks
+paths:
+  /api/webhook:
+    get:
+      summary: Return list of webhooks
+      description: Return list of webhooks
+      operationId: apiListWebhook
+      tags:
+      - Webhooks
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        required: false
+        description: Records to return
+        schema:
+          type: integer
+      - name: start
+        in: query
+        required: false
+        description: Records to offset
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessWebhookListResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:webhook:view
+    post:
+      summary: Creates new webhook
+      description: Creates new webhook
+      operationId: apiAddWebhook
+      tags:
+      - Webhooks
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: URL of webhook. starting with http:// or https://
+                type:
+                  type: string
+                  description: url
+                  enum:
+                  - order_created
+                  - order_status_updated
+                  - download_generated
+              required:
+              - url
+              - type
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessWebhookViewResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:webhook:create
+  /api/webhook/{webhookId}:
+    get:
+      summary: Return webhook details
+      description: Return webhook details
+      operationId: apiShowWebhook
+      tags:
+      - Webhooks
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: webhookId
+        in: path
+        required: true
+        description: ID of webhook to show
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessWebhookViewResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:webhook:view
+    put:
+      summary: Update webhook
+      description: Update webhook
+      operationId: apiUpdateWebhook
+      tags:
+      - Webhooks
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: webhookId
+        in: path
+        required: true
+        description: ID of webhook
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: URL of webhook. starting with http:// or https://
+                active:
+                  type: boolean
+                  description: Is webhook active
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessWebhookViewResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:webhook:update
+    delete:
+      summary: Remove webhook
+      description: Remove webhook
+      operationId: apiRemoveWebhook
+      tags:
+      - Webhooks
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: webhookId
+        in: path
+        required: true
+        description: ID of webhook to remove
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:webhook:remove
+components:
+  schemas:
+    ErrorResponse:
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+        code:
+          type: string
+        message:
+          type: string
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+    SuccessWebhookListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookObject'
+    SuccessWebhookViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/WebhookObject'
+    WebhookObject:
+      required:
+      - webhookId
+      - createdAt
+      properties:
+        webhookId:
+          type: integer
+        createdAt:
+          type: string
+        url:
+          type: string
+        type:
+          enum:
+          - order_created
+          - order_status_updated
+          - download_generated
+          type: string
+        active:
+          type: boolean
+  securitySchemes:
+    pixc_auth:
+      type: oauth2
+      description: 'OAuth 2.0 implicit flow. A personal Access Token can also be obtained from Account
+        Settings > API Access in the Pixc Dashboard and sent as `Authorization: Bearer ACCESS_TOKEN`.'
+      flows:
+        implicit:
+          authorizationUrl: https://dashboard.pixc.com/v1/oauth
+          scopes:
+            api:order:create: Create new orders
+            api:order:view: View orders
+            api:order:cancel: Cancel orders
+            api:template:create: Create new templates
+            api:template:update: Update templates
+            api:template:view: View templates
+            api:template:remove: Remove templates
+            api:webhook:create: Create new webhook
+            api:webhook:update: Update webhook
+            api:webhook:view: View webhooks
+            api:webhook:remove: Remove webhook

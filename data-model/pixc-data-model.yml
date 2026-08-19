@@ -1,0 +1,108 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/pixc-public-api-swagger-original.json
+summary: >-
+  Three top-level resources — Template, Order, Webhook — plus two read-only children of an
+  order (Image and Download). A Template encodes the merchant's photo standard (background,
+  border, shadow, output types, aspect sizes); an Order applies one Template to a batch of
+  submitted files; Images and Downloads are the outputs Pixc produces for that Order.
+  Entity ids are bare integers with no prefixes.
+
+entities:
+- name: Order
+  schema: OrderObject
+  id_field: orderId
+  id_type: integer
+  fields: [orderId, status, payment, templateId, createdAt]
+  notes: >-
+    `status` is an untyped integer whose value vocabulary is not documented anywhere.
+    `payment` is a string (the Node SDK README shows the value "paid").
+  operations: [apiListOrder, apiAddOrder, apiShowOrder, apiCancelOrder]
+- name: Template
+  schema: TemplateObject
+  id_field: templateId
+  id_type: integer
+  fields: [templateId, name, group, background, border, borderWidth, types, sizes]
+  notes: >-
+    `group` accepts the single enum value "autobg", which attaches a fully-automated
+    background handler to every order using the template.
+  operations: [apiListTemplate, apiAddTemplate, apiShowTemplate, apiUpdateTemplate, apiRemoveTemplate]
+- name: TemplateType
+  schema: TemplateTypeObject
+  fields: [type]
+  enum: [jpg, png, psd, original]
+  embedded_in: Template
+- name: TemplateSize
+  schema: TemplateSizeObject
+  fields: [aspect, width, height]
+  enum_aspect: [square, twothree, threetwo, fourthree, custom, ratio]
+  embedded_in: Template
+- name: TemplateSwatch
+  schema: TemplateSwatchObject
+  fields: [color, url]
+  notes: >-
+    Defined in the spec's definitions block but not referenced by any operation or other
+    schema — an orphan definition.
+- name: Webhook
+  schema: WebhookObject
+  id_field: webhookId
+  id_type: integer
+  fields: [webhookId, url, type, active, createdAt]
+  enum_type: [order_created, order_status_updated, download_generated]
+  operations: [apiListWebhook, apiAddWebhook, apiShowWebhook, apiUpdateWebhook, apiRemoveWebhook]
+- name: Image
+  schema: ImageObject
+  id_field: imageId
+  id_type: integer
+  fields: [imageId, orderId, status, name, url, urlEdited, urlOriginal, mid, results]
+  notes: >-
+    `mid` is the caller-supplied external id echoed back from the order submission — the
+    only correlation key between a merchant's own catalog and Pixc's output.
+  operations: [apiImageListOrder]
+- name: ImageResult
+  schema: ImageResultObject
+  fields: [url, size, background, type, border]
+  embedded_in: Image
+  notes: One rendered output per template type/size combination.
+- name: Download
+  schema: DownloadObject
+  id_field: downloadId
+  id_type: integer
+  fields: [downloadId, orderId, url, createdAt]
+  operations: [apiDownloadListOrder]
+- name: OrderFile
+  schema: OrderFileObject
+  fields: [url, name]
+  notes: >-
+    The input shape on POST /api/order. The body description names a third property,
+    `mid` ("EXTERNAL ID"), which is NOT declared on OrderFileObject — a documented field
+    missing from the schema.
+- name: File
+  schema: FileObject
+  fields: [url]
+  notes: >-
+    Referenced only by SuccessFileViewResponse, which no operation returns — an orphan
+    response envelope.
+
+relationships:
+- {from: Order, to: Template, type: belongs_to, via: templateId}
+- {from: Order, to: Image, type: has_many, via: orderId, evidence: 'GET /api/order/{orderId}/image'}
+- {from: Order, to: Download, type: has_many, via: orderId, evidence: 'GET /api/order/{orderId}/download'}
+- {from: Order, to: OrderFile, type: has_many, via: 'files[] in the POST /api/order body'}
+- {from: Image, to: Order, type: belongs_to, via: orderId}
+- {from: Image, to: ImageResult, type: has_many, via: 'results[] ($ref ImageResultObject)'}
+- {from: Download, to: Order, type: belongs_to, via: orderId}
+- {from: Template, to: TemplateType, type: has_many, via: 'types[] ($ref TemplateTypeObject)'}
+- {from: Template, to: TemplateSize, type: has_many, via: 'sizes[] ($ref TemplateSizeObject)'}
+- {from: Webhook, to: Order, type: references, via: 'event types order_created / order_status_updated'}
+- {from: Webhook, to: Download, type: references, via: 'event type download_generated'}
+
+envelopes:
+  success_single: '{ success: true, data: <object> }'
+  success_list: '{ success: true, data: [<object>] }'
+  success_bare: '{ success: true }'
+  error: '{ success: false, code?: string, message: string }'
+
+orphan_definitions: [TemplateSwatchObject, FileObject, SuccessFileViewResponse, ListResponse]
+entity_count: 11
+relationship_count: 11

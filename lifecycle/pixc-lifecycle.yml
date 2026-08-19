@@ -1,0 +1,70 @@
+generated: '2026-08-13'
+method: searched
+source: https://pixc.com/api/
+derived_from: openapi/_original/pixc-public-api-swagger-original.json
+summary: >-
+  Pixc publishes a versioned base path and nothing else. There is no versioning policy, no
+  deprecation policy, no Sunset/Deprecation header support, no SLA, no changelog and no
+  status page. No StatusPage or Deprecation pointer is emitted in apis.yml, because none of
+  those surfaces exists.
+
+versioning:
+  scheme: uri-path
+  current: v1
+  spec_version: 1.0.0
+  base_url: https://dashboard.pixc.com/v1
+  docs: null
+  policy_url: null
+  note: >-
+    info.version in the published Swagger reads 1.0.0 and the base path is /v1. No release
+    train, date-based version header or version-negotiation mechanism is documented.
+
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: No deprecation policy or notice period is published.
+
+deprecated_operations: []
+note_on_deprecated_operations: >-
+  No operation in the published Swagger carries `deprecated: true`.
+
+sla:
+  url: null
+  uptime_target: null
+
+status_page: null
+status_page_note: >-
+  PROBED AND REJECTED. https://status.pixc.com/ returns HTTP 200 — but the body is the
+  two-byte string "OK", which is the pixc.com DNS wildcard answering, not a status page.
+  An invented control host (zzznotreal.pixc.com) returns the identical response, and every
+  path other than / on those hosts 302s to https://pixc.com/404. https://pixc.com/status
+  returns 404. There is no status page; the 200 is a false positive and is recorded here so
+  a later run does not credit it.
+
+changelog:
+  url: null
+  note: >-
+    No changelog, release-notes or "what's new" page was found. https://pixc.com/changelog
+    returns 404, the sitemap (https://pixc.com/sitemap-pages.xml) lists twelve pages and
+    none is a changelog, and the Pixc2 GitHub organization publishes no releases. The only
+    dated public stream is the marketing blog at https://pixc.com/blog/, which covers
+    ecommerce photography advice rather than API changes.
+
+x-decay-signals:
+- signal: sole first-party SDK last released 2019-11-12 (pixc-api-node 0.0.7)
+  source: https://registry.npmjs.org/pixc-api-node
+- signal: backing SDK repository last pushed 2023-01-04
+  source: https://api.github.com/orgs/Pixc2/repos
+- signal: no changelog, no releases, no versioning policy on any surface
+- signal: >-
+    the live API returns an undocumented 403 that the published contract does not declare,
+    indicating the spec has not been revised against the deployed service
+
+evidence:
+- {url: 'https://status.pixc.com/', status: 200, note: 'wildcard "OK" body, not a status page'}
+- {url: 'https://pixc.com/status', status: 404}
+- {url: 'https://pixc.com/changelog', status: 404}
+- {url: 'https://pixc.com/api/', status: 200, note: developer docs; no lifecycle content}
+checked: '2026-08-13'

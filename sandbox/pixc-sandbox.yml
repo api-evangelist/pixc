@@ -1,0 +1,53 @@
+generated: '2026-08-13'
+method: searched
+source: https://pixc.com/api/
+docs: https://pixc.com/api/
+summary: >-
+  Pixc ships a real test mode, and it is a header rather than a separate key or host. Any
+  operation sent with `test: true` runs authentication and full input validation but never
+  modifies account data and returns mock data. Because Pixc bills per image credit, this is
+  the mechanism a caller uses to validate an order payload without spending credits. There
+  is no separate sandbox host, no test/live key prefix pair, no magic test values and no
+  time simulation.
+
+mode:
+  mechanism: request-header
+  header: test
+  type: boolean
+  value: 'true'
+  scope: every operation (declared as an optional header parameter on all 16 operations)
+  behavior_verbatim: >-
+    "This will perform \"fake\" calls. Input data validation rules and authentication checks
+    will be applied, but test calls never modify data in the account."
+  example_verbatim: |
+    curl -X GET \
+      --header 'Accept: application/json' \
+      --header 'Authorization: Bearer ACCESS_TOKEN' \
+      --header 'test: true' \
+      'https://dashboard.pixc.com/v1/api/order'
+
+sdk_support:
+  package: pixc-api-node
+  option: test
+  description_verbatim: >-
+    "test - Optional (Boolean) - Enables or disables test mode. In this mode no real changes
+    will be made. Only returns mock data."
+  source: https://github.com/Pixc2/pixc-api-node
+
+separation:
+  separate_host: false
+  separate_credentials: false
+  key_prefixes: []
+  note: >-
+    The same Access Token and the same base URL (https://dashboard.pixc.com/v1) are used for
+    test and live. The only difference is the header, which means a caller who drops the
+    header in production code silently switches from mock to billable.
+
+test_values: []
+test_clocks: {supported: false}
+fixtures: {supported: false}
+note_on_test_values: >-
+  Pixc publishes no magic test identifiers, sample image URLs, or fixture order/template IDs.
+  The docs show a mock order response shape in the Node SDK README
+  ({"orderId":1,"status":0,"payment":"paid","templateId":1}) but do not publish it as a
+  reusable test fixture, so it is recorded as an example rather than a test value.

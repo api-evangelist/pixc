@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: searched
+source: https://pixc.com/api/
+derived_from:
+- openapi/_original/pixc-public-api-swagger-original.json
+- live probe of https://dashboard.pixc.com/v1/api/order (2026-08-13)
+docs: https://pixc.com/api/
+summary: >-
+  Pixc Public API is a small, uniform REST surface over three resources — orders, templates
+  and webhooks — at https://dashboard.pixc.com/v1. Every operation takes the same optional
+  `test` header, the same `limit`/`start` offset pagination on list operations, and returns
+  the same `{ success, data }` / `{ success, code, message }` envelope. There is no
+  idempotency contract, no request-id header, no rate-limit signalling and no versioning
+  policy published anywhere on the developer surface.
+
+authentication:
+  style: bearer-token
+  header: 'Authorization: Bearer ACCESS_TOKEN'
+  token_source: Pixc Dashboard > Account Settings > API Access (https://pixc.com/dashboard/account/api)
+  declared_scheme: oauth2 implicit (securityDefinitions.pixc_auth in the published Swagger)
+  note: >-
+    The spec declares an OAuth 2.0 implicit flow against
+    https://dashboard.pixc.com/v1/oauth with eleven scopes, but the Getting Started docs
+    instruct developers to copy a long-lived personal Access Token out of the dashboard and
+    send it as a bearer token. Both paths land on the same Authorization header.
+  see: authentication/pixc-authentication.yml
+
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, no idempotency parameter and no retry-safety language appears
+    in the published Swagger document or on https://pixc.com/api/. POST /api/order and
+    POST /api/template are not documented as safely retryable; a repeated POST /api/order
+    creates a second order. No `Idempotency` pointer is emitted in apis.yml.
+
+pagination:
+  style: offset
+  applies_to: [apiListOrder, apiListTemplate, apiListWebhook, apiDownloadListOrder, apiImageListOrder]
+  params:
+  - {name: limit, in: query, type: integer, description: Records to return}
+  - {name: start, in: query, type: integer, description: Records to offset}
+  response_fields: [data]
+  note: >-
+    No total count, no next/prev cursor and no default or maximum page size is documented.
+    A caller cannot tell from a response whether more records exist; the only signal is a
+    short `data` array.
+
+test_mode:
+  header: 'test: true'
+  behavior: >-
+    Input validation and authentication still run; the call never modifies account data and
+    returns mock data. Available on every operation as an optional boolean header parameter.
+  see: sandbox/pixc-sandbox.yml
+
+error_envelope:
+  shape: {success: false, code: string, message: string}
+  schema: ErrorResponse
+  content_type: application/json
+  rfc9457: false
+  documented_statuses: [200, 400]
+  observed_statuses:
+  - status: 403
+    body: '{"message":"API Error","success":false}'
+    note: >-
+      Observed live on an unauthenticated and on a bad-token GET
+      https://dashboard.pixc.com/v1/api/order (2026-08-13). Both return byte-identical
+      403 responses with no `code` field, so a client cannot distinguish "no credential"
+      from "bad credential" from "insufficient scope". 403 is not declared in the spec,
+      which documents only 200 and 400.
+  see: errors/pixc-problem-types.yml
+
+request_tracing:
+  request_id_header: null
+  note: >-
+    No correlation or request-id header is documented, and none appears on live responses.
+    The only per-response identifier observed is a weak ETag.
+
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /v1
+  policy_url: null
+  note: >-
+    The version lives in the base path (https://dashboard.pixc.com/v1) and info.version in
+    the spec reads 1.0.0. No versioning policy, deprecation policy, Sunset/Deprecation header
+    support or changelog is published.
+  see: lifecycle/pixc-lifecycle.yml
+
+rate_limit_signalling:
+  headers: []
+  documented: false
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After headers were present on live responses, and
+    the docs publish no limits. See rate-limits/pixc-rate-limits.yml.
+
+field_expansion: {supported: false}
+sparse_fieldsets: {supported: false}
+metadata:
+  supported: partial
+  note: >-
+    OrderFileObject carries an optional `mid` field described in the POST /api/order body as
+    "EXTERNAL ID", and ImageObject echoes `mid` back. That is the only caller-controlled
+    correlation key in the data model — there is no general metadata bag.
+
+cors:
+  observed: true
+  access_control_allow_origin: '*'
+  access_control_allow_methods: [GET, PUT, POST, DELETE, OPTIONS]
+  access_control_allow_credentials: true
+  note: Observed on a live response from https://dashboard.pixc.com/v1/api/order on 2026-08-13.
+
+cross_links:
+  errors: errors/pixc-problem-types.yml
+  lifecycle: lifecycle/pixc-lifecycle.yml
+  authentication: authentication/pixc-authentication.yml
+  scopes: scopes/pixc-scopes.yml
+  rate_limits: rate-limits/pixc-rate-limits.yml
+  sandbox: sandbox/pixc-sandbox.yml
+  webhooks: asyncapi/pixc-webhooks.yml

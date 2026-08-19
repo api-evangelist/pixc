@@ -1,0 +1,38 @@
+generated: '2026-08-13'
+method: searched
+source: https://registry.npmjs.org/pixc-api-node
+note: >-
+  The Pixc API page (https://pixc.com/api/) lists exactly one client library under
+  "Libraries" — Node.js — as plain text with no link. The matching package was located
+  on npm by registry search: pixc-api-node, whose npm maintainer list includes
+  holly@pixc.com and whose homepage is https://pixc.com/api, and which lives in the
+  Pixc2 GitHub organization ("Pixc Inc.", blog https://pixc.com). That is first-party.
+  No Pixc package exists on PyPI, RubyGems, Packagist, crates.io, NuGet, Maven Central
+  or pkg.go.dev — the names pixc, pixc-api, pixc-sdk, pixc-node, @pixc/sdk and @pixc/api
+  all return 404 on npm.
+packages:
+- language: javascript
+  registry: npm
+  name: pixc-api-node
+  url: https://www.npmjs.com/package/pixc-api-node
+  repository: https://github.com/Pixc2/pixc-api-node
+  install: npm install --save pixc-api-node
+  official: true
+  license: MIT
+  version: 0.0.7
+  published: '2019-11-12'
+  first_published: '2019-04-18'
+  note: >-
+    Read from registry.npmjs.org metadata on 2026-08-13. The only first-party Pixc SDK.
+    Latest release 0.0.7 dates to 2019-11-12 — seven years before this probe — and the
+    backing GitHub repository was last pushed 2023-01-04. It is a thin generic wrapper
+    (constructor takes token + test mode, then .get/.post/.put/.delete against a path),
+    still on the deprecated `request` HTTP dependency and pinned to node >=10.15.3, so
+    it has not tracked the API it wraps. Treat as unmaintained.
+x-registry-misses:
+- registry: npm
+  names: [pixc, pixc-api, pixc-sdk, pixc-node, '@pixc/sdk', '@pixc/api']
+  status: 404
+  checked: '2026-08-13'
+official_count: 1
+package_count: 1

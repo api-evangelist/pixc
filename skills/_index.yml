@@ -1,0 +1,26 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  Generated from the Pixc-published Swagger 2.0 document
+  (https://dashboard.pixc.com/v1/schema, saved verbatim at
+  openapi/_original/pixc-public-api-swagger-original.json) and the developer page at
+  https://pixc.com/api/. Pixc publishes no AGENTS.md or skill files of its own — the Pixc2
+  GitHub organization holds only two Node client libraries. Every operationId referenced in
+  every skill was grepped against the published spec; none is invented.
+skills:
+- file: pixc-optimize-product-photos.md
+  name: Optimize a batch of product photos with Pixc
+  api: openapi/pixc-orders-api-openapi.yml
+  operations: [apiAddTemplate, apiListTemplate, apiAddOrder, apiListOrder, apiShowOrder, apiCancelOrder, apiImageListOrder, apiDownloadListOrder]
+- file: pixc-receive-order-webhooks.md
+  name: Receive Pixc order webhooks instead of polling
+  api: openapi/pixc-webhooks-api-openapi.yml
+  operations: [apiListWebhook, apiAddWebhook, apiShowWebhook, apiUpdateWebhook, apiRemoveWebhook]
+- file: pixc-manage-photo-templates.md
+  name: Manage Pixc photo-standard templates
+  api: openapi/pixc-templates-api-openapi.yml
+  operations: [apiListTemplate, apiAddTemplate, apiShowTemplate, apiUpdateTemplate, apiRemoveTemplate]
+skill_count: 3
+coverage:
+  operations_total: 16
+  operations_referenced: 16

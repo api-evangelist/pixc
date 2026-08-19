@@ -1,0 +1,48 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Pixc Public API (Templates)
+  version: 1.0.0
+extends: openapi/pixc-templates-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Derived from the Pixc-published Swagger 2.0 document at https://dashboard.pixc.com/v1/schema
+  plus live probes of https://dashboard.pixc.com/v1/api/order on 2026-08-13. Captures API
+  Evangelist enhancements only; the harvested original in openapi/_original/ is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: pixc
+    x-apievangelist-source-spec: https://dashboard.pixc.com/v1/schema
+    x-apievangelist-source-format: swagger-2.0
+    x-apievangelist-docs: https://pixc.com/api/
+    x-apievangelist-converted: '2026-08-13'
+- target: $
+  update:
+    x-apievangelist-conventions:
+      pagination: {style: offset, params: [limit, start], total_count: false, cursor: false}
+      idempotency: {supported: false}
+      rate_limit_headers: []
+      test_mode: {header: test, value: 'true'}
+      error_envelope: {success: boolean, code: string, message: string, rfc9457: false}
+      request_id_header: null
+- target: $.components.securitySchemes.pixc_auth
+  update:
+    x-apievangelist-note: >-
+      The spec declares an OAuth 2.0 implicit flow, but https://pixc.com/api/ instructs
+      developers to use a long-lived personal Access Token from Account Settings > API Access
+      sent as 'Authorization: Bearer ACCESS_TOKEN'. The implicit flow is deprecated by
+      RFC 9700 (OAuth 2.0 Security Best Current Practice) and no tokenUrl or refresh is declared.
+- target: $.paths.*.*.responses
+  update:
+    '403':
+      description: >-
+        UNDOCUMENTED BY THE PROVIDER, observed live on 2026-08-13. Returned for a missing
+        credential AND for an invalid bearer token, with a byte-identical body
+        {"message":"API Error","success":false} and no code field. Added by API Evangelist
+        so an agent has a branch for the most likely failure; it is not part of Pixc's
+        published contract.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

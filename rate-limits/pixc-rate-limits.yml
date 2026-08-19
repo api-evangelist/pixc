@@ -1,0 +1,43 @@
+generated: '2026-08-13'
+method: probed
+source: https://pixc.com/api/
+docs: https://pixc.com/api/
+summary: >-
+  HONEST ZERO. Pixc publishes no rate limits and emits no rate-limit response headers.
+  The developer page at https://pixc.com/api/ (Introduction, Getting Started, API Reference)
+  contains no limit, quota, throttle or 429 language, and the published Swagger document
+  declares only 200 and 400 responses on every operation — there is no 429 anywhere in the
+  contract. Live probes of https://dashboard.pixc.com/v1/api/order on 2026-08-13 returned no
+  X-RateLimit-*, no RateLimit-*, and no Retry-After header on either the unauthenticated or
+  the bad-token request.
+
+limits: []
+limit_count: 0
+
+response_headers:
+  observed: []
+  documented: []
+  note: >-
+    Full observed response header set on GET https://dashboard.pixc.com/v1/api/order:
+    date, content-type, content-length, vary, content-security-policy, x-frame-options,
+    strict-transport-security, x-xss-protection, x-content-type-options,
+    x-dns-prefetch-control, referrer-policy, access-control-allow-*, cache-control, pragma,
+    expires, etag. None of these carries a quota signal.
+
+exhaustion:
+  status_code: null
+  retry_after: false
+  note: 429 is neither documented nor declared in the published Swagger.
+
+agent_impact: >-
+  An agent calling this API has no runtime backpressure signal at all. It cannot discover a
+  budget before exhausting it, cannot learn a reset window, and has no documented status code
+  to branch on. The only cost control is commercial rather than technical — orders spend
+  prepaid image credits (see plans/pixc-plans-pricing.yml), and the `test: true` header lets
+  a caller validate a payload without spending them (see sandbox/pixc-sandbox.yml).
+
+evidence:
+- {url: 'https://pixc.com/api/', status: 200, note: 'no limits documented'}
+- {url: 'https://dashboard.pixc.com/v1/api/order', status: 403, note: 'no rate-limit headers on live response'}
+- {url: 'https://dashboard.pixc.com/v1/schema', status: 200, note: 'Swagger declares only 200 and 400 on all 16 operations'}
+checked: '2026-08-13'

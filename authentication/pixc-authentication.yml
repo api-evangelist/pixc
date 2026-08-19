@@ -1,0 +1,74 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/pixc-orders-api-openapi.yml, openapi/pixc-templates-api-openapi.yml, openapi/pixc-webhooks-api-openapi.yml
+docs: https://pixc.com/api/
+token_page: https://pixc.com/dashboard/account/api
+summary:
+  types:
+  - oauth2
+  - http
+  oauth2_flows:
+  - implicit
+  http_schemes:
+  - bearer
+  note: >-
+    The published Swagger declares exactly one security scheme — an OAuth 2.0 implicit flow
+    with eleven scopes — and applies it to all sixteen operations. But the provider's own
+    Getting Started documentation does not use that flow: it instructs developers to copy a
+    long-lived personal Access Token out of the dashboard and send it as
+    `Authorization: Bearer ACCESS_TOKEN`. The bearer entry below is therefore recorded from
+    the docs, not from the spec, and is the path a developer actually takes.
+schemes:
+- name: pixc_auth
+  type: oauth2
+  flows:
+  - flow: implicit
+    authorizationUrl: https://dashboard.pixc.com/v1/oauth
+    tokenUrl: null
+    refreshUrl: null
+    scopes: 11
+  description: >-
+    OAuth 2.0 implicit flow declared in securityDefinitions.pixc_auth of the
+    Pixc-published Swagger 2.0 document. Applied with a scoped requirement on every
+    operation (see scopes/pixc-scopes.yml for the full eleven-scope list).
+  method: derived
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- name: access_token
+  type: http
+  scheme: bearer
+  in: header
+  header: Authorization
+  format: 'Bearer ACCESS_TOKEN'
+  description: >-
+    Long-lived personal Access Token obtained from Account Settings > API Access in the Pixc
+    Dashboard. This is the mechanism the Getting Started docs demonstrate, verbatim:
+    "First of all, you need an Access Token. It can be obtained under Account Settings >
+    API Access section of Pixc Dashboard." The first-party Node SDK takes the same value as
+    its required `token` option.
+  method: searched
+  sources:
+  - https://pixc.com/api/
+  - https://github.com/Pixc2/pixc-api-node
+
+observed_behavior:
+  probe: GET https://dashboard.pixc.com/v1/api/order
+  checked: '2026-08-13'
+  no_credential: {status: 403, body: '{"message":"API Error","success":false}'}
+  invalid_bearer: {status: 403, body: '{"message":"API Error","success":false}'}
+  note: >-
+    Byte-identical responses with no `code` field, and 403 is not declared anywhere in the
+    published spec (which declares only 200 and 400). A client cannot distinguish a missing
+    credential from an invalid one from insufficient scope.
+
+weaknesses:
+- >-
+  The declared OAuth 2.0 grant is the implicit flow, which RFC 9700 (OAuth 2.0 Security Best
+  Current Practice) says must no longer be used. No authorization-code flow, no PKCE, no
+  tokenUrl and no refreshUrl are declared.
+- >-
+  No token lifetime, rotation or revocation procedure is documented for the personal Access
+  Token, and no /.well-known/oauth-authorization-server metadata is served (404).
+- The authentication failure status is undocumented and carries no machine-readable code.

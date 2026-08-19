@@ -1,0 +1,47 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probe of every Pixc host on 2026-08-13
+note: >-
+  RECORDED ABSENCE — Pixc serves no /.well-known/ discovery documents on any host, so no
+  WellKnown or SecurityTxt pointer is emitted in apis.yml. Two distinct failure shapes were
+  observed. On the API host (dashboard.pixc.com) every path returns a clean 404. On the
+  marketing host (pixc.com) every /.well-known/* path returns 403 with a 146-byte HTML body
+  — the web server refuses the whole directory rather than answering per-path, so an absence
+  cannot be distinguished from a block there; either way nothing is served.
+  SEPARATELY: pixc.com runs a DNS wildcard. Every subdomain, including invented ones
+  (zzznotreal.pixc.com), resolves to 136.243.177.137 and answers HTTP 200 with the two-byte
+  body "OK" at the root and 302 -> https://pixc.com/404 on every other path. api.pixc.com,
+  developer.pixc.com, docs.pixc.com and status.pixc.com are ALL this wildcard, not real
+  services. They are recorded here so a future run does not read those 200s as evidence.
+hosts:
+- host: https://dashboard.pixc.com
+  role: api
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://pixc.com
+  role: website
+  documents:
+  - {path: /.well-known/security.txt, status: 403, note: directory refused, HTML body}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+  - {path: /llms.txt, status: 404}
+  - {path: /robots.txt, status: 200, note: served but carries only a Sitemap line and an empty User-agent rule}
+x-wildcard-dns:
+  observed: true
+  resolves_to: 136.243.177.137
+  behavior: 'HTTP 200 body "OK" at /, 302 -> https://pixc.com/404 on every other path'
+  false_positive_hosts: [api.pixc.com, developer.pixc.com, docs.pixc.com, app.pixc.com, status.pixc.com]
+  control: zzznotreal.pixc.com (invented) returns the identical response
+document_count: 0

@@ -1,0 +1,99 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/pixc-public-api-swagger-original.json
+status: candidate
+note: >-
+  NO MCP SERVER EXISTS. Pixc publishes no hosted or local MCP server: nothing on
+  https://pixc.com/api/, nothing in the Pixc2 GitHub organization (2 public repos, both
+  Node client libraries), no @pixc or pixc-mcp package on npm, and /.well-known/ returns
+  404 on dashboard.pixc.com. The tools below are a CANDIDATE list derived one-to-one from
+  the sixteen operations in Pixc's own published Swagger document — they are what an MCP
+  server for this API would expose, not something Pixc ships. No endpoint URL is invented.
+
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+
+server:
+  name: pixc
+  transport: null
+  url: null
+
+tools:
+- name: list_orders
+  description: Return list of orders
+  source_operation: openapi/pixc-orders-api-openapi.yml#apiListOrder
+  scope: 'api:order:view'
+- name: create_order
+  description: Creates new order — submits photos against a template for optimization
+  source_operation: openapi/pixc-orders-api-openapi.yml#apiAddOrder
+  scope: 'api:order:create'
+- name: get_order
+  description: Return order details
+  source_operation: openapi/pixc-orders-api-openapi.yml#apiShowOrder
+  scope: 'api:order:view'
+- name: cancel_order
+  description: Cancel order
+  source_operation: openapi/pixc-orders-api-openapi.yml#apiCancelOrder
+  scope: 'api:order:cancel'
+- name: list_order_downloads
+  description: Return list of downloads for order
+  source_operation: openapi/pixc-orders-api-openapi.yml#apiDownloadListOrder
+  scope: 'api:order:view'
+- name: list_order_images
+  description: Return list of images for order
+  source_operation: openapi/pixc-orders-api-openapi.yml#apiImageListOrder
+  scope: 'api:order:view'
+- name: list_templates
+  description: Return list of templates
+  source_operation: openapi/pixc-templates-api-openapi.yml#apiListTemplate
+  scope: 'api:template:view'
+- name: create_template
+  description: Create new template — defines the merchant's photo standard
+  source_operation: openapi/pixc-templates-api-openapi.yml#apiAddTemplate
+  scope: 'api:template:create'
+- name: get_template
+  description: Return template details
+  source_operation: openapi/pixc-templates-api-openapi.yml#apiShowTemplate
+  scope: 'api:template:view'
+- name: update_template
+  description: Update template
+  source_operation: openapi/pixc-templates-api-openapi.yml#apiUpdateTemplate
+  scope: 'api:template:update'
+- name: remove_template
+  description: Delete template
+  source_operation: openapi/pixc-templates-api-openapi.yml#apiRemoveTemplate
+  scope: 'api:template:remove'
+- name: list_webhooks
+  description: Return list of webhooks
+  source_operation: openapi/pixc-webhooks-api-openapi.yml#apiListWebhook
+  scope: 'api:webhook:view'
+- name: create_webhook
+  description: Creates new webhook
+  source_operation: openapi/pixc-webhooks-api-openapi.yml#apiAddWebhook
+  scope: 'api:webhook:create'
+- name: get_webhook
+  description: Return webhook details
+  source_operation: openapi/pixc-webhooks-api-openapi.yml#apiShowWebhook
+  scope: 'api:webhook:view'
+- name: update_webhook
+  description: Update webhook
+  source_operation: openapi/pixc-webhooks-api-openapi.yml#apiUpdateWebhook
+  scope: 'api:webhook:update'
+- name: remove_webhook
+  description: Remove webhook
+  source_operation: openapi/pixc-webhooks-api-openapi.yml#apiRemoveWebhook
+  scope: 'api:webhook:remove'
+
+tool_count: 16
+
+x-evidence:
+- {url: 'https://pixc.com/api/', status: 200, note: developer page; no MCP mention}
+- {url: 'https://dashboard.pixc.com/.well-known/ai-plugin.json', status: 404}
+- {url: 'https://api.github.com/orgs/Pixc2/repos', status: 200, note: '2 repos, neither an MCP server'}
+- {url: 'https://registry.npmjs.org/-/v1/search?text=pixc', status: 200, note: 'one result, pixc-api-node'}
+checked: '2026-08-13'

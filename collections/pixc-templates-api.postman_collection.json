@@ -1,0 +1,992 @@
+{
+  "item": [
+    {
+      "id": "2850c672-f11b-4ce2-b1d3-a963c27b601b",
+      "name": "Templates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dc0d94d7-cb04-4d16-8662-b19c2d15ff4d",
+          "name": "Return list of templates",
+          "request": {
+            "name": "Return list of templates",
+            "description": {
+              "content": "Return list of templates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "template"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>",
+                  "description": "Records to offset"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Test-only request",
+                "key": "test",
+                "value": "<boolean>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "api:order:create api:order:view api:order:cancel api:template:create api:template:update api:template:view api:template:remove api:webhook:create api:webhook:update api:webhook:view api:webhook:remove"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://dashboard.pixc.com/v1/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2df90be8-8996-4b53-b9dc-6c325639bb53",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"templateId\": 6442,\n      \"background\": \"string\",\n      \"name\": \"string\",\n      \"group\": \"string\",\n      \"border\": \"string\",\n      \"borderWidth\": 7393,\n      \"types\": [\n        {\n          \"type\": \"jpg\"\n        },\n        {\n          \"type\": \"jpg\"\n        }\n      ],\n      \"sizes\": [\n        {\n          \"aspect\": \"fourthree\",\n          \"width\": 774,\n          \"height\": 3334\n        },\n        {\n          \"aspect\": \"custom\",\n          \"width\": 6333,\n          \"height\": 6707\n        }\n      ]\n    },\n    {\n      \"templateId\": 1814,\n      \"background\": \"string\",\n      \"name\": \"string\",\n      \"group\": \"string\",\n      \"border\": \"string\",\n      \"borderWidth\": 6426,\n      \"types\": [\n        {\n          \"type\": \"psd\"\n        },\n        {\n          \"type\": \"psd\"\n        }\n      ],\n      \"sizes\": [\n        {\n          \"aspect\": \"threetwo\",\n          \"width\": 666,\n          \"height\": 6669\n        },\n        {\n          \"aspect\": \"twothree\",\n          \"width\": 7440,\n          \"height\": 6586\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "786d8e6b-2c00-4b4b-91bd-c02cd8f60a81",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f965bf54-56bb-46cf-8024-d33884f2bcd9",
+          "name": "Create new template",
+          "request": {
+            "name": "Create new template",
+            "description": {
+              "content": "Create new template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "template"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Test-only request",
+                "key": "test",
+                "value": "<boolean>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "api:order:create api:order:view api:order:cancel api:template:create api:template:update api:template:view api:template:remove api:webhook:create api:webhook:update api:webhook:view api:webhook:remove"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://dashboard.pixc.com/v1/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"group\": \"<string>\",\n  \"background\": \"<string>\",\n  \"border\": \"<string>\",\n  \"borderWidth\": \"<string>\",\n  \"shadow\": \"<string>\",\n  \"types\": [\n    {\n      \"type\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\"\n    }\n  ],\n  \"sizes\": [\n    {\n      \"aspect\": \"<string>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\"\n    },\n    {\n      \"aspect\": \"<string>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\"\n    }\n  ],\n  \"instructions\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ba4a512-af43-4394-89df-d5438402987f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"group\": \"<string>\",\n  \"background\": \"<string>\",\n  \"border\": \"<string>\",\n  \"borderWidth\": \"<string>\",\n  \"shadow\": \"<string>\",\n  \"types\": [\n    {\n      \"type\": \"psd\"\n    },\n    {\n      \"type\": \"jpg\"\n    }\n  ],\n  \"sizes\": [\n    {\n      \"aspect\": \"twothree\",\n      \"width\": 9950,\n      \"height\": 440\n    },\n    {\n      \"aspect\": \"threetwo\",\n      \"width\": 7968,\n      \"height\": 2492\n    }\n  ],\n  \"instructions\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"templateId\": 3444,\n    \"background\": \"string\",\n    \"name\": \"string\",\n    \"group\": \"string\",\n    \"border\": \"string\",\n    \"borderWidth\": 4089,\n    \"types\": [\n      {\n        \"type\": \"original\"\n      },\n      {\n        \"type\": \"png\"\n      }\n    ],\n    \"sizes\": [\n      {\n        \"aspect\": \"ratio\",\n        \"width\": 8781,\n        \"height\": 2827\n      },\n      {\n        \"aspect\": \"ratio\",\n        \"width\": 1238,\n        \"height\": 2850\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdbe843b-72f2-48cf-9560-c4d93f78fd37",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"group\": \"<string>\",\n  \"background\": \"<string>\",\n  \"border\": \"<string>\",\n  \"borderWidth\": \"<string>\",\n  \"shadow\": \"<string>\",\n  \"types\": [\n    {\n      \"type\": \"psd\"\n    },\n    {\n      \"type\": \"jpg\"\n    }\n  ],\n  \"sizes\": [\n    {\n      \"aspect\": \"twothree\",\n      \"width\": 9950,\n      \"height\": 440\n    },\n    {\n      \"aspect\": \"threetwo\",\n      \"width\": 7968,\n      \"height\": 2492\n    }\n  ],\n  \"instructions\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "834ec4f0-5adb-4459-a1e8-945c180b10ac",
+          "name": "Return template details",
+          "request": {
+            "name": "Return template details",
+            "description": {
+              "content": "Return template details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "template",
+                ":templateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "templateId",
+                  "description": "(Required) ID of template to show"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Test-only request",
+                "key": "test",
+                "value": "<boolean>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "api:order:create api:order:view api:order:cancel api:template:create api:template:update api:template:view api:template:remove api:webhook:create api:webhook:update api:webhook:view api:webhook:remove"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://dashboard.pixc.com/v1/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "155f330b-726f-40c7-8227-440c10719f71",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "templateId",
+                      "description": "(Required) ID of template to show"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"templateId\": 3444,\n    \"background\": \"string\",\n    \"name\": \"string\",\n    \"group\": \"string\",\n    \"border\": \"string\",\n    \"borderWidth\": 4089,\n    \"types\": [\n      {\n        \"type\": \"original\"\n      },\n      {\n        \"type\": \"png\"\n      }\n    ],\n    \"sizes\": [\n      {\n        \"aspect\": \"ratio\",\n        \"width\": 8781,\n        \"height\": 2827\n      },\n      {\n        \"aspect\": \"ratio\",\n        \"width\": 1238,\n        \"height\": 2850\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03b355d1-65b2-49b5-ba9b-8f677f66ea73",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "templateId",
+                      "description": "(Required) ID of template to show"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ff96ff9-5193-4327-9583-32307695a3f5",
+          "name": "Update template",
+          "request": {
+            "name": "Update template",
+            "description": {
+              "content": "Update template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "template",
+                ":templateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "templateId",
+                  "description": "(Required) ID of template to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Test-only request",
+                "key": "test",
+                "value": "<boolean>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "api:order:create api:order:view api:order:cancel api:template:create api:template:update api:template:view api:template:remove api:webhook:create api:webhook:update api:webhook:view api:webhook:remove"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://dashboard.pixc.com/v1/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"group\": \"<string>\",\n  \"background\": \"<string>\",\n  \"border\": \"<string>\",\n  \"borderWidth\": \"<string>\",\n  \"shadow\": \"<string>\",\n  \"types\": [\n    {\n      \"type\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\"\n    }\n  ],\n  \"sizes\": [\n    {\n      \"aspect\": \"<string>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\"\n    },\n    {\n      \"aspect\": \"<string>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\"\n    }\n  ],\n  \"instructions\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf46aee7-9db9-4e65-b1be-529062175ce7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "templateId",
+                      "description": "(Required) ID of template to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"group\": \"<string>\",\n  \"background\": \"<string>\",\n  \"border\": \"<string>\",\n  \"borderWidth\": \"<string>\",\n  \"shadow\": \"<string>\",\n  \"types\": [\n    {\n      \"type\": \"psd\"\n    },\n    {\n      \"type\": \"original\"\n    }\n  ],\n  \"sizes\": [\n    {\n      \"aspect\": \"square\",\n      \"width\": 5283,\n      \"height\": 4379\n    },\n    {\n      \"aspect\": \"fourthree\",\n      \"width\": 9017,\n      \"height\": 9123\n    }\n  ],\n  \"instructions\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"templateId\": 3444,\n    \"background\": \"string\",\n    \"name\": \"string\",\n    \"group\": \"string\",\n    \"border\": \"string\",\n    \"borderWidth\": 4089,\n    \"types\": [\n      {\n        \"type\": \"original\"\n      },\n      {\n        \"type\": \"png\"\n      }\n    ],\n    \"sizes\": [\n      {\n        \"aspect\": \"ratio\",\n        \"width\": 8781,\n        \"height\": 2827\n      },\n      {\n        \"aspect\": \"ratio\",\n        \"width\": 1238,\n        \"height\": 2850\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66aa6cd8-a848-4f0b-9228-345043948ee0",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "templateId",
+                      "description": "(Required) ID of template to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"group\": \"<string>\",\n  \"background\": \"<string>\",\n  \"border\": \"<string>\",\n  \"borderWidth\": \"<string>\",\n  \"shadow\": \"<string>\",\n  \"types\": [\n    {\n      \"type\": \"psd\"\n    },\n    {\n      \"type\": \"original\"\n    }\n  ],\n  \"sizes\": [\n    {\n      \"aspect\": \"square\",\n      \"width\": 5283,\n      \"height\": 4379\n    },\n    {\n      \"aspect\": \"fourthree\",\n      \"width\": 9017,\n      \"height\": 9123\n    }\n  ],\n  \"instructions\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7535e548-983e-4fa1-af16-fe8d92d6d20a",
+          "name": "Delete template",
+          "request": {
+            "name": "Delete template",
+            "description": {
+              "content": "Delete template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "template",
+                ":templateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "templateId",
+                  "description": "(Required) ID of template to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Test-only request",
+                "key": "test",
+                "value": "<boolean>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "api:order:create api:order:view api:order:cancel api:template:create api:template:update api:template:view api:template:remove api:webhook:create api:webhook:update api:webhook:view api:webhook:remove"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://dashboard.pixc.com/v1/oauth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "13df5f2d-a97c-4d49-b995-347033cd1a85",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "templateId",
+                      "description": "(Required) ID of template to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e8a8f24-c349-4ced-a50a-204c0c199273",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "template",
+                    ":templateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "templateId",
+                      "description": "(Required) ID of template to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Test-only request",
+                    "key": "test",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://dashboard.pixc.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c0e19ada-331b-4bb0-9269-d5a8c7354f0b",
+    "name": "Pixc Public API Templates",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Pixc Public API — automate product-photo optimization (background removal, resize, ratio and file-type adjustment, shadows and reflections) by submitting photos as orders against reusable templates. Harvested from the Pixc-published Swagger 2.0 document at https://dashboard.pixc.com/v1/schema and converted to OpenAPI 3.1; split by tag by the API Evangelist pipeline.\n\nContact Support:\n Name: Pixc",
+      "type": "text/plain"
+    }
+  }
+}

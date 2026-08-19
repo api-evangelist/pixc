@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: searched
+source: https://pixc.com/photo-editing/
+docs: https://pixc.com/photo-editing/
+currency: USD
+model: prepaid-credits
+summary: >-
+  Pixc sells the photo-editing service as prepaid image credits, not subscriptions. Four
+  one-time credit packs, all at a flat $2.00 per Basic image, with credits valid for 365
+  days. The pricing page states "Pay only for images you need" and "All prices are in USD",
+  and shows no subscription tier and no overage schedule.
+  IMPORTANT: none of these plans is an API plan. The Pixc Public API
+  (https://dashboard.pixc.com/v1) is not separately priced, metered or tiered anywhere on
+  the developer surface — an API caller spends the same image credits an order placed
+  through the dashboard would spend. There is no free tier, no API-specific quota and no
+  published enterprise/volume tier.
+
+plans:
+- name: Small
+  price: 20
+  currency: USD
+  billing_period: one-time
+  included_quota: {images: 10, tier: Basic}
+  unit_price: 2.00
+  credit_validity_days: 365
+  features: [Background removal, Crop and resize]
+  overage: null
+- name: Medium
+  price: 100
+  currency: USD
+  billing_period: one-time
+  included_quota: {images: 50, tier: Basic}
+  unit_price: 2.00
+  credit_validity_days: 365
+  features: [Background removal, Crop and resize]
+  overage: null
+- name: Large
+  price: 400
+  currency: USD
+  billing_period: one-time
+  included_quota: {images: 200, tier: Basic}
+  unit_price: 2.00
+  credit_validity_days: 365
+  features: [Background removal, Crop and resize]
+  overage: null
+- name: Extra Large
+  price: 2000
+  currency: USD
+  billing_period: one-time
+  included_quota: {images: 1000, tier: Basic}
+  unit_price: 2.00
+  credit_validity_days: 365
+  features: [Background removal, Crop and resize]
+  overage: null
+
+plan_count: 4
+
+api_pricing:
+  separately_priced: false
+  free_tier: false
+  note: >-
+    The API consumes the same image credits. The only free path a developer has is the
+    `test: true` header, which validates a payload without spending credits and returns
+    mock data (see sandbox/pixc-sandbox.yml).
+
+x-note-on-prior-record: >-
+  The previous apis.yml description referred to "an optional Pixc Member subscription".
+  No such subscription appears on https://pixc.com/photo-editing/ as fetched on 2026-08-13;
+  the page presents credit packs only. The description has been corrected to match what the
+  page publishes now.
+
+x-shopify-app-pricing:
+  note: >-
+    Pixc's five Shopify apps (Photo Resize, AI Image Editing / Retail Ready Photos, AI Alt
+    Text, Visual Merchandising, Lifestyle Photos) are priced on their own Shopify App Store
+    listings under apps.shopify.com/partners/pixc, which is a Shopify surface rather than a
+    Pixc-published pricing page. Not captured here.
+
+evidence:
+- {url: 'https://pixc.com/photo-editing/', status: 200}
+checked: '2026-08-13'

@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/pixc-public-api-swagger-original.json
+docs: https://pixc.com/api/
+format: custom
+rfc9457: false
+note: >-
+  Pixc does not use RFC 9457 problem+json. Every operation declares exactly one failure
+  response — 400, schema ErrorResponse — carrying a JSON envelope
+  { success: false, code?: string, message: string }. There is no published error-code
+  reference, so the `code` field's vocabulary is undocumented; no code values could be
+  harvested and none are invented here. All sixteen operations share the same single
+  error shape, which is why this catalog has two entries rather than sixteen.
+
+envelope:
+  content_type: application/json
+  schema: ErrorResponse
+  fields:
+  - {name: success, type: boolean, required: true, note: always false on an error}
+  - {name: message, type: string, required: true, note: human-readable text}
+  - {name: code, type: string, required: false, note: machine-readable code; vocabulary undocumented}
+
+problems:
+- status: 400
+  title: Error
+  detail_field: message
+  code_field: code
+  schema: ErrorResponse
+  declared: true
+  source_operations:
+  - openapi/pixc-orders-api-openapi.yml#apiListOrder
+  - openapi/pixc-orders-api-openapi.yml#apiAddOrder
+  - openapi/pixc-orders-api-openapi.yml#apiShowOrder
+  - openapi/pixc-orders-api-openapi.yml#apiCancelOrder
+  - openapi/pixc-orders-api-openapi.yml#apiDownloadListOrder
+  - openapi/pixc-orders-api-openapi.yml#apiImageListOrder
+  - openapi/pixc-templates-api-openapi.yml#apiListTemplate
+  - openapi/pixc-templates-api-openapi.yml#apiAddTemplate
+  - openapi/pixc-templates-api-openapi.yml#apiShowTemplate
+  - openapi/pixc-templates-api-openapi.yml#apiUpdateTemplate
+  - openapi/pixc-templates-api-openapi.yml#apiRemoveTemplate
+  - openapi/pixc-webhooks-api-openapi.yml#apiListWebhook
+  - openapi/pixc-webhooks-api-openapi.yml#apiAddWebhook
+  - openapi/pixc-webhooks-api-openapi.yml#apiShowWebhook
+  - openapi/pixc-webhooks-api-openapi.yml#apiUpdateWebhook
+  - openapi/pixc-webhooks-api-openapi.yml#apiRemoveWebhook
+  remediation: >-
+    Re-read the `message` field. Validation failures on POST /api/order (missing `files`)
+    and POST /api/template (missing `name`) surface here. Re-run the same call with
+    `test: true` to confirm the payload validates before spending credits.
+- status: 403
+  title: API Error
+  detail_field: message
+  schema: ErrorResponse
+  declared: false
+  method: probed
+  observed: '2026-08-13'
+  observed_body: '{"message":"API Error","success":false}'
+  source_operations:
+  - openapi/pixc-orders-api-openapi.yml#apiListOrder
+  note: >-
+    UNDOCUMENTED. Observed live on GET https://dashboard.pixc.com/v1/api/order with no
+    Authorization header AND with a deliberately invalid bearer token — both return a
+    byte-identical 403 with no `code` field. The spec declares only 200 and 400, so an
+    agent following the contract has no branch for the single most likely failure it will
+    hit. There is no way to distinguish missing credential, invalid credential and
+    insufficient scope from the response.
+  remediation: >-
+    Check that an Access Token from Account Settings > API Access is present as
+    `Authorization: Bearer ACCESS_TOKEN`, and that the token's scopes cover the operation
+    (see scopes/pixc-scopes.yml).
+
+problem_count: 2

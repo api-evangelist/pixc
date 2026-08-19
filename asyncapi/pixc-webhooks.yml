@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/pixc-public-api-swagger-original.json
+docs: https://pixc.com/api/
+spec_type: null
+asyncapi_published: false
+note: >-
+  Pixc publishes NO AsyncAPI document — no /asyncapi.yaml on any host, nothing in the Pixc2
+  GitHub organization (2 public repos, both Node client libraries), no event-catalog page.
+  It does, however, ship webhooks as a first-class REST resource with full CRUD, and the
+  published Swagger enumerates the event vocabulary as an enum on WebhookObject.type. That
+  catalog is captured here verbatim from the spec and the surface is wired as
+  `type: Webhooks`. No AsyncAPI is authored on Pixc's behalf.
+
+transport: http-callback
+subscription_model: >-
+  A consumer registers a webhook by POSTing url + type to /api/webhook. The registration is
+  managed through the same REST API (list, show, update, remove) and carries an `active`
+  boolean that can be toggled via PUT /api/webhook/{webhookId}.
+
+events:
+- name: order_created
+  source: WebhookObject.type enum, openapi/_original/pixc-public-api-swagger-original.json
+  description: >-
+    Fires when an order is created. Derived from the enum value; Pixc publishes no payload
+    schema, delivery semantics or example body for the callback itself.
+  payload_schema: null
+- name: order_status_updated
+  source: WebhookObject.type enum, openapi/_original/pixc-public-api-swagger-original.json
+  description: >-
+    Fires when an order's status changes. OrderObject.status is an integer in the spec and
+    its value vocabulary is not documented.
+  payload_schema: null
+- name: download_generated
+  source: WebhookObject.type enum, openapi/_original/pixc-public-api-swagger-original.json
+  description: >-
+    Fires when a download becomes available for an order — the completion signal for the
+    optimize-photos flow, replacing polling GET /api/order/{orderId}/download.
+  payload_schema: null
+
+event_count: 3
+
+management_operations:
+- operationId: apiListWebhook
+  method: GET
+  path: /api/webhook
+  scope: 'api:webhook:view'
+- operationId: apiAddWebhook
+  method: POST
+  path: /api/webhook
+  scope: 'api:webhook:create'
+- operationId: apiShowWebhook
+  method: GET
+  path: '/api/webhook/{webhookId}'
+  scope: 'api:webhook:view'
+- operationId: apiUpdateWebhook
+  method: PUT
+  path: '/api/webhook/{webhookId}'
+  scope: 'api:webhook:update'
+- operationId: apiRemoveWebhook
+  method: DELETE
+  path: '/api/webhook/{webhookId}'
+  scope: 'api:webhook:remove'
+
+registration:
+  endpoint: POST https://dashboard.pixc.com/v1/api/webhook
+  content_type: application/x-www-form-urlencoded
+  parameters:
+  - {name: url, required: true, description: 'URL of webhook. starting with http:// or https://'}
+  - {name: type, required: true, description: 'Declared in the spec as formData string with description "url"'}
+  note: >-
+    The `type` form parameter on POST /api/webhook is declared as an unconstrained string
+    whose description reads only "url" — the WebhookObject.type enum
+    (order_created / order_status_updated / download_generated) is NOT applied to the
+    request parameter. That is a real gap in the published contract: an agent cannot tell
+    from the spec which values `type` accepts on create.
+
+gaps:
+- no payload schema is published for any of the three events
+- no signature, HMAC or verification scheme is documented for inbound callbacks
+- no retry, backoff or delivery-guarantee policy is documented
+- no delivery-log or replay endpoint exists
+- the create-webhook `type` parameter is untyped despite the enum existing on the response object
+- http:// is explicitly permitted as a callback scheme

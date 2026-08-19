@@ -1,0 +1,428 @@
+openapi: 3.1.0
+info:
+  title: Pixc Public API Orders
+  version: 1.0.0
+  description: Pixc Public API — automate product-photo optimization (background removal, resize, ratio
+    and file-type adjustment, shadows and reflections) by submitting photos as orders against reusable
+    templates. Harvested from the Pixc-published Swagger 2.0 document at https://dashboard.pixc.com/v1/schema
+    and converted to OpenAPI 3.1; split by tag by the API Evangelist pipeline.
+  contact:
+    name: Pixc
+    url: https://pixc.com/api/
+servers:
+- url: https://dashboard.pixc.com/v1
+  description: Pixc Public API
+tags:
+- name: Orders
+paths:
+  /api/order:
+    get:
+      summary: Return list of orders
+      description: Return list of orders
+      operationId: apiListOrder
+      tags:
+      - Orders
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        required: false
+        description: Records to return
+        schema:
+          type: integer
+      - name: start
+        in: query
+        required: false
+        description: Records to offset
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessOrderListResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:order:view
+    post:
+      summary: Creates new order
+      description: Creates new order
+      operationId: apiAddOrder
+      tags:
+      - Orders
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - files
+              properties:
+                templateId:
+                  description: Template ID
+                  type: integer
+                files:
+                  type: array
+                  description: 'JSON array of objects: { url: URL, name: NAME, mid: EXTERNAL ID }'
+                  items:
+                    $ref: '#/components/schemas/OrderFileObject'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessOrderViewResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:order:create
+  /api/order/{orderId}:
+    get:
+      summary: Return order details
+      description: Return order details
+      operationId: apiShowOrder
+      tags:
+      - Orders
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: orderId
+        in: path
+        required: true
+        description: ID of order to show
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessOrderViewResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:order:view
+    delete:
+      summary: Cancel order
+      description: Cancel order
+      operationId: apiCancelOrder
+      tags:
+      - Orders
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: orderId
+        in: path
+        required: true
+        description: ID of order to cancel
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:order:cancel
+  /api/order/{orderId}/download:
+    get:
+      summary: Return list of downloads for order
+      description: Return list of downloads for order
+      operationId: apiDownloadListOrder
+      tags:
+      - Orders
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: orderId
+        in: path
+        required: true
+        description: ID of order
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        description: Records to return
+        schema:
+          type: integer
+      - name: start
+        in: query
+        required: false
+        description: Records to offset
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessDownloadListResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:order:view
+  /api/order/{orderId}/image:
+    get:
+      summary: Return list of images for order
+      description: Return list of images for order
+      operationId: apiImageListOrder
+      tags:
+      - Orders
+      parameters:
+      - name: test
+        in: header
+        required: false
+        description: Test-only request
+        schema:
+          type: boolean
+      - name: orderId
+        in: path
+        required: true
+        description: ID of order
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        description: Records to return
+        schema:
+          type: integer
+      - name: start
+        in: query
+        required: false
+        description: Records to offset
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessImageListResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:order:view
+components:
+  schemas:
+    DownloadObject:
+      required:
+      - downloadId
+      properties:
+        downloadId:
+          type: integer
+        orderId:
+          type: integer
+        url:
+          type: string
+        createdAt:
+          type: string
+    ErrorResponse:
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+        code:
+          type: string
+        message:
+          type: string
+    ImageObject:
+      required:
+      - imageId
+      properties:
+        imageId:
+          type: integer
+        orderId:
+          type: integer
+        status:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+        urlEdited:
+          type: string
+        urlOriginal:
+          type: string
+        mid:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageResultObject'
+    ImageResultObject:
+      required:
+      - url
+      properties:
+        url:
+          type: string
+        size:
+          type: string
+        background:
+          type: string
+        type:
+          type: string
+        border:
+          type: string
+    OrderFileObject:
+      required:
+      - url
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+    OrderObject:
+      required:
+      - orderId
+      - status
+      - payment
+      - createdAt
+      properties:
+        orderId:
+          type: integer
+        status:
+          type: integer
+        payment:
+          type: string
+        templateId:
+          type: integer
+        createdAt:
+          type: string
+    SuccessDownloadListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DownloadObject'
+    SuccessImageListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageObject'
+    SuccessOrderListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderObject'
+    SuccessOrderViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/OrderObject'
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+  securitySchemes:
+    pixc_auth:
+      type: oauth2
+      description: 'OAuth 2.0 implicit flow. A personal Access Token can also be obtained from Account
+        Settings > API Access in the Pixc Dashboard and sent as `Authorization: Bearer ACCESS_TOKEN`.'
+      flows:
+        implicit:
+          authorizationUrl: https://dashboard.pixc.com/v1/oauth
+          scopes:
+            api:order:create: Create new orders
+            api:order:view: View orders
+            api:order:cancel: Cancel orders
+            api:template:create: Create new templates
+            api:template:update: Update templates
+            api:template:view: View templates
+            api:template:remove: Remove templates
+            api:webhook:create: Create new webhook
+            api:webhook:update: Update webhook
+            api:webhook:view: View webhooks
+            api:webhook:remove: Remove webhook

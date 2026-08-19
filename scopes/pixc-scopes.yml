@@ -1,0 +1,114 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/pixc-orders-api-openapi.yml, openapi/pixc-templates-api-openapi.yml, openapi/pixc-webhooks-api-openapi.yml
+schemes:
+- name: pixc_auth
+  source: openapi/pixc-orders-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://dashboard.pixc.com/v1/oauth
+  description: 'OAuth 2.0 implicit flow. A personal Access Token can also be obtained from Account
+    Settings > API Access in the Pixc Dashboard and sent as `Authorization: Bearer ACCESS_TOKEN`.'
+- name: pixc_auth
+  source: openapi/pixc-templates-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://dashboard.pixc.com/v1/oauth
+  description: 'OAuth 2.0 implicit flow. A personal Access Token can also be obtained from Account
+    Settings > API Access in the Pixc Dashboard and sent as `Authorization: Bearer ACCESS_TOKEN`.'
+- name: pixc_auth
+  source: openapi/pixc-webhooks-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://dashboard.pixc.com/v1/oauth
+  description: 'OAuth 2.0 implicit flow. A personal Access Token can also be obtained from Account
+    Settings > API Access in the Pixc Dashboard and sent as `Authorization: Bearer ACCESS_TOKEN`.'
+scopes:
+- scope: api:order:cancel
+  description: Cancel orders
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:order:create
+  description: Create new orders
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:order:view
+  description: View orders
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:template:create
+  description: Create new templates
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:template:remove
+  description: Remove templates
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:template:update
+  description: Update templates
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:template:view
+  description: View templates
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:webhook:create
+  description: Create new webhook
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:webhook:remove
+  description: Remove webhook
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:webhook:update
+  description: Update webhook
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
+- scope: api:webhook:view
+  description: View webhooks
+  flows:
+  - implicit
+  sources:
+  - openapi/pixc-orders-api-openapi.yml
+  - openapi/pixc-templates-api-openapi.yml
+  - openapi/pixc-webhooks-api-openapi.yml
