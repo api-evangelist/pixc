@@ -41,6 +41,20 @@ modified: '2026-08-13'
 tags:
 - Company
 - Shopify
+- E-Commerce
+- Photo Editing
+- Image Optimization
+- Image Processing
+- Product Photography
+- Background Removal
+- SEO
+- Automation
+- Artificial Intelligence
+- Webhook
+- Digital Asset Management
+tags_raw:
+- Company
+- Shopify
 - Ecommerce
 - Photo Editing
 - Image Optimization
@@ -68,6 +82,15 @@ apis:
   humanURL: https://pixc.com/api/
   baseURL: https://dashboard.pixc.com/v1
   tags:
+  - Image Processing
+  - Photo Editing
+  - Background Removal
+  - Image Resizing
+  - E-Commerce
+  - Product Photography
+  - Digital Asset Management
+  - Webhook
+  tags_raw:
   - image-processing
   - photo-editing
   - background-removal
