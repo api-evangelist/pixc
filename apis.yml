@@ -94,13 +94,13 @@ apis:
   humanURL: https://pixc.com/api/
   baseURL: https://dashboard.pixc.com/v1
   tags:
-  - image-processing
-  - photo-editing
-  - background-removal
-  - image-resizing
+  - Image Processing
+  - Photo Editing
+  - Background Removal
+  - Image Resizing
   - E-Commerce
-  - product-photography
-  - digital-asset-management
+  - Product Photography
+  - Digital Asset Management
   - Webhook
   tags_raw:
   - image-processing
