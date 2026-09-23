@@ -1,51 +1,58 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Pixc Public API Templates
   version: 1.0.0
-  description: Pixc Public API — automate product-photo optimization (background removal, resize, ratio
-    and file-type adjustment, shadows and reflections) by submitting photos as orders against reusable
-    templates. Harvested from the Pixc-published Swagger 2.0 document at https://dashboard.pixc.com/v1/schema
-    and converted to OpenAPI 3.1; split by tag by the API Evangelist pipeline.
-  contact:
-    name: Pixc
-    url: https://pixc.com/api/
+  title: Pixc Public Templates API
 servers:
 - url: https://dashboard.pixc.com/v1
-  description: Pixc Public API
 tags:
 - name: Templates
 paths:
   /api/template:
+    x-swagger-router-controller: template
     get:
-      summary: Return list of templates
-      description: Return list of templates
-      operationId: apiListTemplate
       tags:
       - Templates
+      description: Return list of templates
+      operationId: apiListTemplate
       parameters:
       - name: test
         in: header
-        required: false
         description: Test-only request
+        required: false
         schema:
           type: boolean
+          default: false
       - name: limit
         in: query
-        required: false
         description: Records to return
+        required: false
         schema:
           type: integer
+          default: 50
+          maximum: 100
+          minimum: 1
       - name: start
         in: query
-        required: false
         description: Records to offset
+        required: false
         schema:
           type: integer
+          default: 0
+          minimum: 0
       responses:
         '200':
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateListResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateListResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateListResponse'
+            image/jpg:
               schema:
                 $ref: '#/components/schemas/SuccessTemplateListResponse'
         '400':
@@ -54,24 +61,68 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       security:
       - pixc_auth:
         - api:template:view
+      summary: Api list template
+      x-summary-source: derived
     post:
-      summary: Create new template
-      description: Create new template
-      operationId: apiAddTemplate
       tags:
       - Templates
+      description: Create new template
+      operationId: apiAddTemplate
       parameters:
       - name: test
         in: header
-        required: false
         description: Test-only request
+        required: false
         schema:
           type: boolean
+          default: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:template:create
       requestBody:
-        required: false
         content:
           application/json:
             schema:
@@ -83,9 +134,7 @@ paths:
                   description: Template name
                   type: string
                 group:
-                  description: Template group to use. Group defines special handlers attached to all orders
-                    using this template. Currently only "autobg" handler is available - it will process
-                    an order in fully-automated mode.
+                  description: Template group to use. Group defines special handlers attached to all orders using this template. Currently only "autobg" handler is available - it will process an order in fully-automated mode.
                   type: string
                   enum:
                   - autobg
@@ -114,40 +163,27 @@ paths:
                 instructions:
                   description: Template instructions
                   type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessTemplateViewResponse'
-        '400':
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-      security:
-      - pixc_auth:
-        - api:template:create
+      summary: Api add template
+      x-summary-source: derived
   /api/template/{templateId}:
+    x-swagger-router-controller: template
     get:
-      summary: Return template details
-      description: Return template details
-      operationId: apiShowTemplate
       tags:
       - Templates
+      description: Return template details
+      operationId: apiShowTemplate
       parameters:
       - name: test
         in: header
-        required: false
         description: Test-only request
+        required: false
         schema:
           type: boolean
+          default: false
       - name: templateId
         in: path
-        required: true
         description: ID of template to show
+        required: true
         schema:
           type: integer
       responses:
@@ -157,45 +193,96 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
         '400':
           description: Error
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/jpg:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
       - pixc_auth:
         - api:template:view
+      summary: Api show template
+      x-summary-source: derived
     put:
-      summary: Update template
-      description: Update template
-      operationId: apiUpdateTemplate
       tags:
       - Templates
+      description: Update template
+      operationId: apiUpdateTemplate
       parameters:
       - name: test
         in: header
-        required: false
         description: Test-only request
+        required: false
         schema:
           type: boolean
+          default: false
       - name: templateId
         in: path
-        required: true
         description: ID of template to update
+        required: true
         schema:
           type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/SuccessTemplateViewResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - pixc_auth:
+        - api:template:update
       requestBody:
-        required: false
         content:
           application/json:
             schema:
               type: object
               properties:
                 group:
-                  description: Template group to use. Group defines special handlers attached to all orders
-                    using this template. Currently only "autobg" handler is available - it will process
-                    an order in fully-automated mode.
+                  description: Template group to use. Group defines special handlers attached to all orders using this template. Currently only "autobg" handler is available - it will process an order in fully-automated mode.
                   type: string
                   enum:
                   - autobg
@@ -224,39 +311,25 @@ paths:
                 instructions:
                   description: Template instructions
                   type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessTemplateViewResponse'
-        '400':
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-      security:
-      - pixc_auth:
-        - api:template:update
+      summary: Api update template
+      x-summary-source: derived
     delete:
-      summary: Delete template
-      description: Delete template
-      operationId: apiRemoveTemplate
       tags:
       - Templates
+      description: Delete template
+      operationId: apiRemoveTemplate
       parameters:
       - name: test
         in: header
-        required: false
         description: Test-only request
+        required: false
         schema:
           type: boolean
+          default: false
       - name: templateId
         in: path
-        required: true
         description: ID of template to delete
+        required: true
         schema:
           type: integer
       responses:
@@ -266,28 +339,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
         '400':
           description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/png:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            image/jpg:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       security:
       - pixc_auth:
         - api:template:remove
+      summary: Api remove template
+      x-summary-source: derived
 components:
   schemas:
-    ErrorResponse:
+    SuccessTemplateViewResponse:
       required:
       - success
-      - message
+      - data
       properties:
         success:
           type: boolean
-        code:
-          type: string
-        message:
-          type: string
+        data:
+          $ref: '#/components/schemas/TemplateObject'
     SuccessResponse:
       required:
       - success
@@ -305,15 +396,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TemplateObject'
-    SuccessTemplateViewResponse:
+    ErrorResponse:
       required:
       - success
-      - data
+      - message
       properties:
         success:
           type: boolean
-        data:
-          $ref: '#/components/schemas/TemplateObject'
+        code:
+          type: string
+        message:
+          type: string
+    TemplateTypeObject:
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - jpg
+          - png
+          - psd
+          - original
+    TemplateSizeObject:
+      required:
+      - aspect
+      properties:
+        aspect:
+          type: string
+          enum:
+          - square
+          - twothree
+          - threetwo
+          - fourthree
+          - custom
+          - ratio
+        width:
+          type: integer
+        height:
+          type: integer
     TemplateObject:
       required:
       - templateId
@@ -340,42 +461,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TemplateSizeObject'
-    TemplateSizeObject:
-      required:
-      - aspect
-      properties:
-        aspect:
-          type: string
-          enum:
-          - square
-          - twothree
-          - threetwo
-          - fourthree
-          - custom
-          - ratio
-        width:
-          type: integer
-        height:
-          type: integer
-    TemplateTypeObject:
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - jpg
-          - png
-          - psd
-          - original
   securitySchemes:
     pixc_auth:
       type: oauth2
-      description: 'OAuth 2.0 implicit flow. A personal Access Token can also be obtained from Account
-        Settings > API Access in the Pixc Dashboard and sent as `Authorization: Bearer ACCESS_TOKEN`.'
       flows:
         implicit:
-          authorizationUrl: https://dashboard.pixc.com/v1/oauth
           scopes:
             api:order:create: Create new orders
             api:order:view: View orders
@@ -388,3 +478,4 @@ components:
             api:webhook:update: Update webhook
             api:webhook:view: View webhooks
             api:webhook:remove: Remove webhook
+          authorizationUrl: https://dashboard.pixc.com/v1/oauth

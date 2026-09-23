@@ -1,0 +1,24 @@
+{
+  "provider": "pixc",
+  "sources": [
+    "_original/pixc-public-api-swagger-original.json"
+  ],
+  "outputs": [
+    "pixc-orders-api-openapi.yml",
+    "pixc-templates-api-openapi.yml",
+    "pixc-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pixc-public-api-swagger-original.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "pixc-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pixc-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pixc-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
