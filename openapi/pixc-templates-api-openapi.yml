@@ -370,54 +370,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SuccessTemplateViewResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/TemplateObject'
-    SuccessResponse:
-      required:
-      - success
-      properties:
-        success:
-          type: boolean
-    SuccessTemplateListResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateObject'
-    ErrorResponse:
-      required:
-      - success
-      - message
-      properties:
-        success:
-          type: boolean
-        code:
-          type: string
-        message:
-          type: string
-    TemplateTypeObject:
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - jpg
-          - png
-          - psd
-          - original
     TemplateSizeObject:
       required:
       - aspect
@@ -435,6 +387,23 @@ components:
           type: integer
         height:
           type: integer
+    TemplateTypeObject:
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - jpg
+          - png
+          - psd
+          - original
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
     TemplateObject:
       required:
       - templateId
@@ -461,6 +430,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TemplateSizeObject'
+    SuccessTemplateViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TemplateObject'
+    ErrorResponse:
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+        code:
+          type: string
+        message:
+          type: string
+    SuccessTemplateListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateObject'
   securitySchemes:
     pixc_auth:
       type: oauth2

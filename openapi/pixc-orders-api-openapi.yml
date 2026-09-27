@@ -402,60 +402,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SuccessResponse:
+    OrderFileObject:
       required:
-      - success
+      - url
       properties:
-        success:
-          type: boolean
-    OrderObject:
-      required:
-      - orderId
-      - status
-      - payment
-      - createdAt
-      properties:
-        orderId:
-          type: integer
-        status:
-          type: integer
-        payment:
+        url:
           type: string
-        templateId:
-          type: integer
-        createdAt:
+        name:
           type: string
-    SuccessOrderListResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderObject'
-    ErrorResponse:
-      required:
-      - success
-      - message
-      properties:
-        success:
-          type: boolean
-        code:
-          type: string
-        message:
-          type: string
-    SuccessOrderViewResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/OrderObject'
     SuccessImageListResponse:
       required:
       - success
@@ -467,6 +421,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImageObject'
+    SuccessOrderViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/OrderObject'
+    ImageResultObject:
+      required:
+      - url
+      properties:
+        url:
+          type: string
+        size:
+          type: string
+        background:
+          type: string
+        type:
+          type: string
+        border:
+          type: string
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
     ImageObject:
       required:
       - imageId
@@ -491,6 +474,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImageResultObject'
+    SuccessOrderListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderObject'
+    OrderObject:
+      required:
+      - orderId
+      - status
+      - payment
+      - createdAt
+      properties:
+        orderId:
+          type: integer
+        status:
+          type: integer
+        payment:
+          type: string
+        templateId:
+          type: integer
+        createdAt:
+          type: string
+    ErrorResponse:
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+        code:
+          type: string
+        message:
+          type: string
     SuccessDownloadListResponse:
       required:
       - success
@@ -513,28 +535,6 @@ components:
         url:
           type: string
         createdAt:
-          type: string
-    ImageResultObject:
-      required:
-      - url
-      properties:
-        url:
-          type: string
-        size:
-          type: string
-        background:
-          type: string
-        type:
-          type: string
-        border:
-          type: string
-    OrderFileObject:
-      required:
-      - url
-      properties:
-        url:
-          type: string
-        name:
           type: string
   securitySchemes:
     pixc_auth:
