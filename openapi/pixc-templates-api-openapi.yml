@@ -370,23 +370,21 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TemplateSizeObject:
+    SuccessTemplateViewResponse:
       required:
-      - aspect
+      - success
+      - data
       properties:
-        aspect:
-          type: string
-          enum:
-          - square
-          - twothree
-          - threetwo
-          - fourthree
-          - custom
-          - ratio
-        width:
-          type: integer
-        height:
-          type: integer
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TemplateObject'
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
     TemplateTypeObject:
       required:
       - type
@@ -398,12 +396,6 @@ components:
           - png
           - psd
           - original
-    SuccessResponse:
-      required:
-      - success
-      properties:
-        success:
-          type: boolean
     TemplateObject:
       required:
       - templateId
@@ -430,15 +422,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TemplateSizeObject'
-    SuccessTemplateViewResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/TemplateObject'
     ErrorResponse:
       required:
       - success
@@ -461,6 +444,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TemplateObject'
+    TemplateSizeObject:
+      required:
+      - aspect
+      properties:
+        aspect:
+          type: string
+          enum:
+          - square
+          - twothree
+          - threetwo
+          - fourthree
+          - custom
+          - ratio
+        width:
+          type: integer
+        height:
+          type: integer
   securitySchemes:
     pixc_auth:
       type: oauth2
