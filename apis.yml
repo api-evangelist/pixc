@@ -158,6 +158,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/pixc-capability-edges.yml
+  name: Pixc Business Capability Map
 - type: DeveloperPortal
   url: https://pixc.com/api/
 - type: Documentation

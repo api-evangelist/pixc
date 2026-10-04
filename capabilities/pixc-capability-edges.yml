@@ -1,0 +1,26 @@
+slug: pixc
+provider: Pixc
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Webhooks
+  spec_file: pixc-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.75
+  evidence: 'POST /api/webhook apiAddWebhook Api add webhook; PUT /api/webhook/{webhookId} apiUpdateWebhook;
+    schemas: WebhookObject'
+  reason: Full CRUD lifecycle over outbound webhook subscriptions exposed to API consumers, which is exactly
+    Webhook & Event Subscription Management in this frame. Confidence tempered because the surface shows
+    subscription CRUD only, with no event-schema or delivery-reliability operations.
