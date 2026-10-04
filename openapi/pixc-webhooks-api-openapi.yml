@@ -351,32 +351,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SuccessWebhookViewResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/WebhookObject'
-    SuccessResponse:
-      required:
-      - success
-      properties:
-        success:
-          type: boolean
-    SuccessWebhookListResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookObject'
     ErrorResponse:
       required:
       - success
@@ -388,6 +362,26 @@ components:
           type: string
         message:
           type: string
+    SuccessWebhookListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookObject'
+    SuccessWebhookViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/WebhookObject'
     WebhookObject:
       required:
       - webhookId
@@ -406,6 +400,12 @@ components:
           - download_generated
           type: string
         active:
+          type: boolean
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
           type: boolean
   securitySchemes:
     pixc_auth:

@@ -370,58 +370,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SuccessTemplateViewResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/TemplateObject'
-    SuccessResponse:
-      required:
-      - success
-      properties:
-        success:
-          type: boolean
-    TemplateTypeObject:
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - jpg
-          - png
-          - psd
-          - original
-    TemplateObject:
-      required:
-      - templateId
-      properties:
-        templateId:
-          type: integer
-        background:
-          type: string
-        name:
-          type: string
-        group:
-          type: string
-        border:
-          type: string
-        borderWidth:
-          type:
-          - integer
-          - string
-        types:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateTypeObject'
-        sizes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateSizeObject'
     ErrorResponse:
       required:
       - success
@@ -433,6 +381,17 @@ components:
           type: string
         message:
           type: string
+    TemplateTypeObject:
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - jpg
+          - png
+          - psd
+          - original
     SuccessTemplateListResponse:
       required:
       - success
@@ -461,6 +420,47 @@ components:
           type: integer
         height:
           type: integer
+    SuccessTemplateViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TemplateObject'
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+    TemplateObject:
+      required:
+      - templateId
+      properties:
+        templateId:
+          type: integer
+        background:
+          type: string
+        name:
+          type: string
+        group:
+          type: string
+        border:
+          type: string
+        borderWidth:
+          type:
+          - integer
+          - string
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateTypeObject'
+        sizes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateSizeObject'
   securitySchemes:
     pixc_auth:
       type: oauth2
