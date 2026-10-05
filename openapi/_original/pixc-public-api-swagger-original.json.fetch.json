@@ -1,0 +1,12 @@
+{
+ "url": "https://dashboard.pixc.com/v1/schema",
+ "requested_url": "https://dashboard.pixc.com/v1/schema",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 17964,
+ "sha256": "4ce5ca3d4e6ae2db1f0598225963676a321bc1e883b05b1deefa49770dd74d35",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
