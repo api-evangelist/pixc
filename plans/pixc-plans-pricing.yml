@@ -79,3 +79,34 @@ x-shopify-app-pricing:
 evidence:
 - {url: 'https://pixc.com/photo-editing/', status: 200}
 checked: '2026-08-13'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Small
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Medium
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Large
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Extra Large
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
