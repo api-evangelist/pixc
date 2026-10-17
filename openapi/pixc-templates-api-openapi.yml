@@ -370,6 +370,12 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
     ErrorResponse:
       required:
       - success
@@ -420,21 +426,6 @@ components:
           type: integer
         height:
           type: integer
-    SuccessTemplateViewResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/TemplateObject'
-    SuccessResponse:
-      required:
-      - success
-      properties:
-        success:
-          type: boolean
     TemplateObject:
       required:
       - templateId
@@ -461,6 +452,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TemplateSizeObject'
+    SuccessTemplateViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TemplateObject'
   securitySchemes:
     pixc_auth:
       type: oauth2

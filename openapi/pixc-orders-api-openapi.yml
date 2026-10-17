@@ -402,81 +402,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SuccessOrderViewResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/OrderObject'
-    OrderFileObject:
-      required:
-      - url
-      properties:
-        url:
-          type: string
-        name:
-          type: string
-    ErrorResponse:
-      required:
-      - success
-      - message
-      properties:
-        success:
-          type: boolean
-        code:
-          type: string
-        message:
-          type: string
-    SuccessImageListResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageObject'
-    ImageResultObject:
-      required:
-      - url
-      properties:
-        url:
-          type: string
-        size:
-          type: string
-        background:
-          type: string
-        type:
-          type: string
-        border:
-          type: string
-    SuccessDownloadListResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DownloadObject'
-    SuccessOrderListResponse:
-      required:
-      - success
-      - data
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderObject'
     OrderObject:
       required:
       - orderId
@@ -506,6 +431,54 @@ components:
           type: string
         createdAt:
           type: string
+    SuccessResponse:
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+    SuccessDownloadListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DownloadObject'
+    SuccessOrderListResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderObject'
+    ErrorResponse:
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+        code:
+          type: string
+        message:
+          type: string
+    SuccessOrderViewResponse:
+      required:
+      - success
+      - data
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/OrderObject'
     ImageObject:
       required:
       - imageId
@@ -530,12 +503,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImageResultObject'
-    SuccessResponse:
+    SuccessImageListResponse:
       required:
       - success
+      - data
       properties:
         success:
           type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageObject'
+    OrderFileObject:
+      required:
+      - url
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+    ImageResultObject:
+      required:
+      - url
+      properties:
+        url:
+          type: string
+        size:
+          type: string
+        background:
+          type: string
+        type:
+          type: string
+        border:
+          type: string
   securitySchemes:
     pixc_auth:
       type: oauth2
