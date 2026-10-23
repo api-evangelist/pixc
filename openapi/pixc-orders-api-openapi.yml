@@ -554,3 +554,9 @@ components:
             api:webhook:view: View webhooks
             api:webhook:remove: Remove webhook
           authorizationUrl: https://dashboard.pixc.com/v1/oauth
+x-provenance:
+  method: harvested
+  publisher: Pixc
+  source: https://dashboard.pixc.com/v1/schema
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
